@@ -5,6 +5,8 @@ node_modules/
 dist/
 .next/
 .turbo/
+*.js.map
+next-env.d.ts
 
 # Environment
 .env
@@ -27,3 +29,9 @@ coverage/
 # Debug
 *.log
 npm-debug.log*
+
+# Lock files (users generate their own)
+package-lock.json
+
+# Internal build plans
+prd/

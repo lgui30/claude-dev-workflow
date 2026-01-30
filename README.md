@@ -132,7 +132,7 @@ MSW mocks disabled. Frontend hits real API. **37 tests passing across 8 test fil
 
 ```bash
 # Clone and install
-git clone https://github.com/anthropics/claude-dev-workflow.git
+git clone https://github.com/lgui30/claude-dev-workflow.git
 cd claude-dev-workflow/starter
 npm install
 

@@ -5,6 +5,8 @@ node_modules/
 .next/
 dist/
 .turbo/
+*.js.map
+next-env.d.ts
 
 # Environment
 .env
@@ -29,3 +31,6 @@ drizzle/meta/
 
 # Docker
 docker-data/
+
+# Lock files
+package-lock.json
