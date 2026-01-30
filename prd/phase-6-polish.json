@@ -1,0 +1,89 @@
+{
+  "phase": "PHASE-6",
+  "title": "Quality Polish & Advanced Features",
+  "description": "Implement the advanced ideas from the insights document: automated validation, phase context chaining, retrospective command, and progress tracking. This is what elevates the project from 'useful' to 'impressive'.",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": ["PHASE-4", "PHASE-5"],
+  "context_chain": {
+    "receives_from": "PHASE-4, PHASE-5",
+    "receives_summary": "Complete project with docs and example — now adding polish and advanced features",
+    "outputs_to": null,
+    "output_summary": "Production-ready open-source project"
+  },
+  "ideas_implemented": [
+    "Idea 1 — Automated Phase Validation (/validate)",
+    "Idea 2 — Phase Context Chaining",
+    "Idea 4 — Retrospective Command (/retro)",
+    "Idea 5 — Visual Progress Tracking",
+    "Idea 6 — Parallel Frontend + Backend Tracks documentation"
+  ],
+  "deliverables": [
+    {
+      "path": ".claude/commands/validate.md",
+      "description": "Enhanced /validate command: checks file existence against plan, runs tests, checks lint, verifies component size limits, outputs structured pass/fail report"
+    },
+    {
+      "path": ".claude/commands/retro.md",
+      "description": "/retro command that analyzes the completed feature delivery: phase durations, iteration counts, common issues, improvement suggestions"
+    },
+    {
+      "path": ".claude/commands/progress.md",
+      "description": "/progress command that shows visual phase completion status with the progress bar format from the insights doc"
+    },
+    {
+      "path": "docs/phase-context-chaining.md",
+      "description": "Guide explaining how each phase outputs a context summary that the next phase consumes, reducing AI context loss between phases"
+    },
+    {
+      "path": "docs/parallel-tracks.md",
+      "description": "Guide for running frontend and backend tracks in parallel with two Claude Code sessions"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P6-T1",
+      "title": "Build /validate command with quality checks",
+      "description": "Enhance the validation command to check: files created match the plan, all tests pass (npm run test), lint is clean (npm run lint), no component exceeds 80 lines. Output a structured report.",
+      "status": "pending"
+    },
+    {
+      "id": "P6-T2",
+      "title": "Build /retro command",
+      "description": "Create the retrospective command that analyzes git history for the feature branch: count commits per phase, identify phases with most changes, surface patterns in test failures, suggest workflow improvements.",
+      "status": "pending"
+    },
+    {
+      "id": "P6-T3",
+      "title": "Build /progress command",
+      "description": "Create visual progress tracking that reads the plan file and git history to show which phases are complete, in-progress, or pending. ASCII progress bar format.",
+      "status": "pending"
+    },
+    {
+      "id": "P6-T4",
+      "title": "Implement phase context chaining format",
+      "description": "Define a .phase-context.json format that each /implement writes after completion. Contains: files created, interfaces exported, types defined, test results. Next phase reads this automatically.",
+      "status": "pending"
+    },
+    {
+      "id": "P6-T5",
+      "title": "Write parallel tracks documentation",
+      "description": "Document how to run frontend (Phases 1-3) and backend (Phases 4-6) in parallel using two Claude Code sessions. Include: setup, sync points, conflict resolution, merge strategy.",
+      "status": "pending"
+    },
+    {
+      "id": "P6-T6",
+      "title": "Final quality sweep",
+      "description": "Review all files for consistency: naming conventions, cross-references, broken links, typos. Ensure the repo is ready for public release.",
+      "status": "pending"
+    }
+  ],
+  "acceptance_criteria": [
+    "/validate produces a clear pass/fail report for any phase",
+    "/retro generates useful insights from git history",
+    "/progress shows accurate visual phase status",
+    "Phase context chaining format is documented and implemented in /implement",
+    "All documentation is cross-linked and consistent",
+    "Repo is clean, professional, and ready for GitHub release"
+  ]
+}

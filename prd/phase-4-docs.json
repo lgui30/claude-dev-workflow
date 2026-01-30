@@ -1,0 +1,88 @@
+{
+  "phase": "PHASE-4",
+  "title": "Documentation & README",
+  "description": "Create the documentation that makes the project accessible and compelling. The README is the storefront — it must clearly communicate what this is, why it matters, and how to start in under 2 minutes.",
+  "status": "pending",
+  "priority": "high",
+  "dependencies": ["PHASE-1", "PHASE-2", "PHASE-3"],
+  "context_chain": {
+    "receives_from": "PHASE-1, PHASE-2, PHASE-3",
+    "receives_summary": "All commands, agents, skills, and starter monorepo are complete — docs describe what exists",
+    "outputs_to": "PHASE-6",
+    "output_summary": "Complete documentation suite"
+  },
+  "deliverables": [
+    {
+      "path": "README.md",
+      "description": "Hero README with: problem statement, workflow diagram (ASCII), quick start (5 steps), command reference table, phase overview, screenshot/GIF placeholder, badges, contributing link"
+    },
+    {
+      "path": "docs/getting-started.md",
+      "description": "Step-by-step setup guide: prerequisites, clone, install, first /prd, first /implement cycle"
+    },
+    {
+      "path": "docs/workflow-guide.md",
+      "description": "Deep-dive into the 7-phase methodology: why this order, what each phase does, how context chains between phases, testing philosophy"
+    },
+    {
+      "path": "docs/customization.md",
+      "description": "How to adapt the workflow to different stacks: swapping Next.js for Remix, NestJS for Express, Drizzle for Prisma. How to write custom skills and agents"
+    },
+    {
+      "path": "docs/team-workflow.md",
+      "description": "Multi-developer patterns: parallel frontend+backend tracks, phase ownership, PR review workflow, how to split work across Claude Code sessions"
+    },
+    {
+      "path": "docs/command-reference.md",
+      "description": "Detailed reference for every slash command: syntax, arguments, options, output format, examples"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "description": "Contribution guidelines: how to add skills, agents, or commands. Code of conduct. PR process."
+    },
+    {
+      "path": "LICENSE",
+      "description": "MIT License"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P4-T1",
+      "title": "Write the README",
+      "description": "Create a compelling README that hooks developers in 10 seconds. Must include: one-line description, problem statement (2 sentences), ASCII workflow diagram, quick start (clone → install → /prd → /implement), command table, link to detailed docs.",
+      "status": "pending"
+    },
+    {
+      "id": "P4-T2",
+      "title": "Write getting-started guide",
+      "description": "Step-by-step walkthrough for first-time users. Prerequisites (Node 20+, Docker, Claude Code), installation, running first feature through the pipeline.",
+      "status": "pending"
+    },
+    {
+      "id": "P4-T3",
+      "title": "Write workflow deep-dive",
+      "description": "Explain the methodology: why frontend-first, why inside-out TDD, how phase context chaining works, testing philosophy per phase.",
+      "status": "pending"
+    },
+    {
+      "id": "P4-T4",
+      "title": "Write customization and team workflow guides",
+      "description": "How to swap tech stack components, write custom skills/agents, and use the workflow with multiple developers.",
+      "status": "pending"
+    },
+    {
+      "id": "P4-T5",
+      "title": "Write command reference and CONTRIBUTING.md",
+      "description": "Detailed reference docs and contribution guidelines.",
+      "status": "pending"
+    }
+  ],
+  "acceptance_criteria": [
+    "README communicates the value prop in under 10 seconds of reading",
+    "Quick start has exactly 5 steps or fewer",
+    "All commands are documented with syntax, arguments, and examples",
+    "Customization guide covers at least 3 alternative tech stacks",
+    "Team workflow describes parallel track pattern",
+    "No broken links between documents"
+  ]
+}

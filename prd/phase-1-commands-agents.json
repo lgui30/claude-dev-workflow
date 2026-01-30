@@ -1,0 +1,190 @@
+{
+  "phase": "PHASE-1",
+  "title": "Core Commands & Agents",
+  "description": "Build the slash commands and phase agents that form the core product. These are the files users copy into their .claude/ directory to get the full workflow.",
+  "status": "pending",
+  "priority": "critical",
+  "context_chain": {
+    "receives_from": null,
+    "outputs_to": "PHASE-2",
+    "output_summary": "List of all commands and agents created, their file paths, and the interfaces between them (how /implement dispatches to agents)"
+  },
+  "deliverables": [
+    {
+      "path": ".claude/commands/prd.md",
+      "description": "Slash command that generates a Product Requirements Document. Takes a project name and description, outputs a structured PRD markdown file to docs/PRD-{name}.md"
+    },
+    {
+      "path": ".claude/commands/story.md",
+      "description": "Slash command that generates a user story with BDD scenarios (Given/When/Then). Takes a story ID and description, reads the PRD for context, outputs to docs/stories/{ID}.md"
+    },
+    {
+      "path": ".claude/commands/phased-plan.md",
+      "description": "Slash command that generates a 7-phase implementation plan. Reads the user story, maps it to the 7 phases, defines deliverables per phase, outputs to docs/plans/PLAN-{ID}.md"
+    },
+    {
+      "path": ".claude/commands/implement.md",
+      "description": "Phase dispatcher command. Takes 'Phase N' as argument, reads the plan, loads the correct phase agent, and executes the implementation with the right context"
+    },
+    {
+      "path": ".claude/commands/validate.md",
+      "description": "Quality gate command. Runs after /implement to verify: files created, tests pass, lint clean, size limits respected. Blocks next phase if validation fails"
+    },
+    {
+      "path": ".claude/commands/commit.md",
+      "description": "Creates a conventional commit scoped to the current phase. Reads git diff, generates commit message following conventional commits format"
+    },
+    {
+      "path": ".claude/commands/pr.md",
+      "description": "Creates a pull request from all phase commits. Generates PR title, summary with phase breakdown, test plan checklist"
+    }
+  ],
+  "agents": [
+    {
+      "path": ".claude/agents/frontend-phase-1.md",
+      "title": "Presentational UI Agent",
+      "responsibilities": [
+        "Build pure UI components with no business logic",
+        "Use TypeScript props interfaces",
+        "Style with Tailwind CSS",
+        "Components should be < 80 lines",
+        "Write tests AFTER implementation"
+      ],
+      "input": "User story BDD scenarios + Phase plan deliverables",
+      "output": "apps/web/src/components/ and __tests__/"
+    },
+    {
+      "path": ".claude/agents/frontend-phase-2.md",
+      "title": "API Client & Mocks Agent",
+      "responsibilities": [
+        "Create TanStack Query hooks for data fetching",
+        "Set up MSW handlers for mocking API responses",
+        "Define API response types in shared library",
+        "No real API calls yet"
+      ],
+      "input": "Phase 1 component props (what data the UI needs)",
+      "output": "apps/web/src/lib/api/, apps/web/src/mocks/, libs/shared/src/types/"
+    },
+    {
+      "path": ".claude/agents/frontend-phase-3.md",
+      "title": "Smart Components Agent",
+      "responsibilities": [
+        "Connect presentational components to state",
+        "Implement Zustand stores for client state",
+        "Wire up TanStack Query hooks",
+        "Handle loading, error, and success states",
+        "Write integration tests for user flows"
+      ],
+      "input": "Phase 1 components + Phase 2 API hooks",
+      "output": "apps/web/src/stores/, apps/web/src/app/ pages, integration tests"
+    },
+    {
+      "path": ".claude/agents/backend-phase-4.md",
+      "title": "Repository Layer Agent (TDD)",
+      "responsibilities": [
+        "Write repository tests FIRST (test-driven)",
+        "Implement Drizzle-based repositories",
+        "Use Testcontainers for real PostgreSQL in tests",
+        "Define database schema if needed"
+      ],
+      "input": "API response types from Phase 2 (what data the frontend expects)",
+      "output": "apps/api/src/modules/*/domain/, *.repository.ts, *.repository.spec.ts"
+    },
+    {
+      "path": ".claude/agents/backend-phase-5.md",
+      "title": "Service Layer Agent (TDD)",
+      "responsibilities": [
+        "Write service tests FIRST with mocked repositories",
+        "Implement business logic in services",
+        "Transform domain types to API response types",
+        "Handle validation and error cases"
+      ],
+      "input": "Phase 4 repository interfaces",
+      "output": "*.service.ts, *.service.spec.ts"
+    },
+    {
+      "path": ".claude/agents/backend-phase-6.md",
+      "title": "Controller Agent (TDD)",
+      "responsibilities": [
+        "Write E2E tests FIRST with Supertest",
+        "Implement thin controllers (validation + delegation)",
+        "Return types from shared library",
+        "Wire up NestJS modules"
+      ],
+      "input": "Phase 5 services",
+      "output": "*.controller.ts, *.module.ts, *.e2e.spec.ts"
+    },
+    {
+      "path": ".claude/agents/integration-phase-7.md",
+      "title": "Integration Agent",
+      "responsibilities": [
+        "Remove MSW mocks (or make optional for dev)",
+        "Configure real API endpoints",
+        "Test complete user flows end-to-end",
+        "Fix any integration issues"
+      ],
+      "input": "All frontend (Phases 1-3) + all backend (Phases 4-6)",
+      "output": "Updated API client config, env variables, working E2E app"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P1-T1",
+      "title": "Create /prd command",
+      "description": "Write the PRD slash command that generates structured product requirements documents. Should prompt for project name and description, then output a well-organized PRD with sections: Overview, Problem Statement, Target Users, Core Features, Technical Constraints, Success Metrics.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T2",
+      "title": "Create /story command",
+      "description": "Write the user story command with BDD scenario generation. Should read the PRD for context, take a story ID and title, generate Given/When/Then scenarios, define acceptance criteria.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T3",
+      "title": "Create /phased-plan command",
+      "description": "Write the 7-phase plan generator. Reads a user story, maps BDD scenarios to the 7 phases, defines concrete deliverables (file paths, component names) for each phase.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T4",
+      "title": "Create /implement command (phase dispatcher)",
+      "description": "Write the dispatcher that routes 'Phase N' to the correct agent. Should load the plan, extract phase-specific context, load the agent, and pass the right instructions.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T5",
+      "title": "Create /validate command (quality gate)",
+      "description": "Write the validation command that checks phase output: files exist, tests pass, lint clean, component size limits. Outputs a pass/fail report.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T6",
+      "title": "Create /commit and /pr commands",
+      "description": "Write commit (conventional format, phase-scoped) and PR (phase breakdown summary) commands.",
+      "status": "pending"
+    },
+    {
+      "id": "P1-T7",
+      "title": "Create all 7 phase agent files",
+      "description": "Write the agent markdown files that define each phase's behavior, responsibilities, testing approach, and output format. Each agent should include: role definition, input expectations, output format, quality rules, and examples.",
+      "status": "pending"
+    }
+  ],
+  "acceptance_criteria": [
+    "All 7 slash commands exist and have clear instruction prompts",
+    "All 7 agent files exist with structured role definitions",
+    "/implement correctly dispatches to the right agent based on phase number",
+    "/validate checks file existence, test results, and lint status",
+    "Commands reference each other correctly (e.g., /implement reads plans created by /phased-plan)"
+  ],
+  "validation": {
+    "command": "/validate Phase 1",
+    "checks": [
+      "All .claude/commands/*.md files exist",
+      "All .claude/agents/*.md files exist",
+      "Each command has: description, arguments, output format",
+      "Each agent has: role, responsibilities, input/output, quality rules"
+    ]
+  }
+}

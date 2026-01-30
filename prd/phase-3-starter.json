@@ -1,0 +1,86 @@
+{
+  "phase": "PHASE-3",
+  "title": "Starter Monorepo Scaffold",
+  "description": "Create the full monorepo starter that users clone to begin building. Includes Next.js frontend, NestJS backend, shared types library, Turborepo build system, and Docker Compose for local PostgreSQL.",
+  "status": "pending",
+  "priority": "high",
+  "dependencies": ["PHASE-1"],
+  "context_chain": {
+    "receives_from": "PHASE-1",
+    "receives_summary": "Agent output paths define the monorepo structure — starter must match exactly",
+    "outputs_to": "PHASE-5",
+    "output_summary": "Working monorepo scaffold that example feature will be built into"
+  },
+  "deliverables": [
+    {
+      "path": "starter/",
+      "description": "Root monorepo directory with Turborepo configuration"
+    },
+    {
+      "path": "starter/apps/web/",
+      "description": "Next.js 14+ App Router application with Tailwind CSS, TanStack Query provider, Zustand, MSW browser integration, and Vitest config"
+    },
+    {
+      "path": "starter/apps/api/",
+      "description": "NestJS application with Drizzle ORM, module structure, health check endpoint, Vitest config, and Testcontainers setup"
+    },
+    {
+      "path": "starter/libs/shared/",
+      "description": "Shared TypeScript library for API response types, error formats, and common utilities"
+    },
+    {
+      "path": "starter/docker-compose.yml",
+      "description": "Docker Compose with PostgreSQL 16 for local development"
+    },
+    {
+      "path": "starter/.claude/",
+      "description": "Copy of the .claude/ commands, agents, and skills from Phases 1-2 — so users get the workflow when they clone"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "P3-T1",
+      "title": "Initialize Turborepo monorepo",
+      "description": "Create root package.json, turbo.json, tsconfig.base.json. Configure build, dev, test, and lint pipelines.",
+      "status": "pending"
+    },
+    {
+      "id": "P3-T2",
+      "title": "Scaffold Next.js web app",
+      "description": "Create apps/web with Next.js App Router, Tailwind CSS, TanStack Query provider, Zustand store skeleton, MSW browser setup, and Vitest config with Testing Library.",
+      "status": "pending"
+    },
+    {
+      "id": "P3-T3",
+      "title": "Scaffold NestJS API app",
+      "description": "Create apps/api with NestJS, Drizzle ORM config, database module, health check controller, Vitest config, and Testcontainers helper.",
+      "status": "pending"
+    },
+    {
+      "id": "P3-T4",
+      "title": "Create shared types library",
+      "description": "Create libs/shared with API response base types (ApiResponse<T>, PaginatedResponse<T>, ApiError), shared validation schemas.",
+      "status": "pending"
+    },
+    {
+      "id": "P3-T5",
+      "title": "Set up Docker Compose",
+      "description": "Create docker-compose.yml with PostgreSQL 16, persistent volume, and environment variable template (.env.example).",
+      "status": "pending"
+    },
+    {
+      "id": "P3-T6",
+      "title": "Verify the scaffold builds and tests pass",
+      "description": "Run npm install, npm run build, npm run test across the entire monorepo. Fix any issues. Ensure zero-config startup.",
+      "status": "pending"
+    }
+  ],
+  "acceptance_criteria": [
+    "npm install completes without errors",
+    "npm run build succeeds for all packages",
+    "npm run test passes (health check test in API, smoke test in web)",
+    "npm run dev starts both frontend and backend concurrently",
+    "Docker Compose starts PostgreSQL and API connects to it",
+    ".claude/ directory is present with all commands, agents, and skills"
+  ]
+}
